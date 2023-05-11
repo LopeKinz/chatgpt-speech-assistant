@@ -23,8 +23,7 @@ def listen():
         print("Speak now...")
         audio = r.listen(source)
         try:
-            text = r.recognize_google(audio)
-            return text
+            return r.recognize_google(audio)
         except:
             speak("Sorry, I did not understand that.")
             return ""
@@ -33,10 +32,7 @@ def listen():
 while True:
     # Ask for input from user
     speak("What do you want to say?")
-    text = listen()
-
-    # If the input is not empty, send it to ChatGPT
-    if text:
+    if text := listen():
         response = openai.Completion.create(
             engine=model_engine,
             prompt=text,
